@@ -30,10 +30,15 @@ type Table struct {
 }
 
 type TableConfig struct {
-	max            uint8
-	min            uint8
+	BeginIndex     uint8
+	Max            uint8
+	Min            uint8
 	viewer         bool
-	randomPosition bool
+	RandomPosition bool
+}
+
+func NewTableConfig() *TableConfig {
+	return &TableConfig{}
 }
 
 type TableViewer struct {
@@ -44,7 +49,7 @@ type TablePlayer struct {
 	*Player
 	OutList []Card
 	Ready   bool
-	score   int32
+	Score   int32
 }
 
 func (t *Table) JoinAsViewer(Player *Player) bool {
@@ -74,7 +79,7 @@ func (t *Table) Ready(player *Player, ready bool) bool {
 }
 
 func (t *Table) Enough() bool {
-	return uint8(len(t.TablePlayers)) >= t.min
+	return uint8(len(t.TablePlayers)) >= t.Min
 }
 
 func (t *Table) GetTablePlayer(player *Player) *TablePlayer {
@@ -88,8 +93,8 @@ func (t *Table) GetTablePlayer(player *Player) *TablePlayer {
 
 func (t *Table) NextPlayer(current uint8) (*Player, uint8) {
 	fmt.Println("in...")
-	if current > t.max-1 {
-		current = t.max - 1
+	if current > t.Max-1 {
+		current = t.Max - 1
 	}
 	position := t.NextPosition(current)
 	var player *Player = nil
@@ -105,8 +110,8 @@ func (t *Table) NextPlayer(current uint8) (*Player, uint8) {
 
 func (t *Table) PrePlayer(current uint8) (*Player, uint8) {
 	fmt.Println("in...")
-	if current > t.max-1 {
-		current = t.max - 1
+	if current > t.Max-1 {
+		current = t.Max - 1
 	}
 	position := t.PrePosition(current)
 	var player *Player = nil
@@ -120,7 +125,7 @@ func (t *Table) PrePlayer(current uint8) (*Player, uint8) {
 }
 
 func (t *Table) NextPosition(position uint8) uint8 {
-	if position == t.max {
+	if position == t.Max {
 		return 0
 	} else {
 		return position + 1
@@ -129,7 +134,7 @@ func (t *Table) NextPosition(position uint8) uint8 {
 
 func (t *Table) PrePosition(position uint8) uint8 {
 	if position == 0 {
-		return t.max - 1
+		return t.Max - 1
 	} else {
 		return position - 1
 	}

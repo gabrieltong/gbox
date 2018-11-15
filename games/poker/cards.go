@@ -1,7 +1,7 @@
 package poker
 
 import (
-	"gabrieltong/gbox/models"
+	"github.com/gabrieltong/gbox/models"
 )
 
 const Heart uint8 = 11

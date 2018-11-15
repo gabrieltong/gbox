@@ -2,9 +2,9 @@ package ddz
 
 import (
 	"fmt"
-	"gabrieltong/gbox/games/poker"
-	"gabrieltong/gbox/models"
 
+	"github.com/gabrieltong/gbox/games/poker"
+	"github.com/gabrieltong/gbox/models"
 	"github.com/looplab/fsm"
 )
 
@@ -20,6 +20,10 @@ type Ddz struct {
 	config *DdzConfig
 	*models.Game
 	FSM *fsm.FSM
+}
+
+func (d *Ddz) handlerAction() {
+
 }
 
 func (d *Ddz) enterState(e *fsm.Event) {

@@ -1,5 +1,7 @@
 package models
 
+import "math/rand"
+
 type PlayerId uint32
 
 type Player struct {
@@ -13,7 +15,7 @@ type PlayerConfig struct {
 
 // }
 
-// func Sample() *Player {
-// 	id := PlayerId(rand.Uint32())
-// 	return NewPlayer(id)
-// }
+func SamplePlayer() *Player {
+	id := PlayerId(rand.Uint32())
+	return &Player{id}
+}

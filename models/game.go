@@ -1,16 +1,23 @@
 package models
 
 type GameInterface interface {
-	SetConfig(config interface{})
-	GetConfig(config interface{}) interface{}
+	setConfig(config interface{})
+	getConfig(config interface{})
+	handleAction(action interface{})
 }
 
 type GameConfig struct {
+	*TableConfig
 	Size int
 }
 
+func NewGameConfig() *GameConfig {
+	config := &GameConfig{}
+	config.TableConfig = NewTableConfig()
+	return config
+}
+
 type Game struct {
-	beginIndex uint8
 	*Table
 	config  interface{}
 	Size    uint8
@@ -26,7 +33,9 @@ func (g Game) GetConfig(config interface{}) interface{} {
 }
 
 func NewGame() *Game {
+	gameConfig := &GameConfig{Size: 4}
 	game := &Game{}
-	game.Table = NewTable(&TableConfig{})
+	game.config = gameConfig
+	game.Table = NewTable(gameConfig.TableConfig)
 	return game
 }
